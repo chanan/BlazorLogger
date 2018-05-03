@@ -6,6 +6,13 @@
     <IsPackable>true</IsPackable>
     <BlazorLinkOnBuild>false</BlazorLinkOnBuild>
     <LangVersion>7.3</LangVersion>
+    <PackageId>BlazorLogger</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>Chanan Braunstein</Authors>
+    <Title>Blazor Console Logger</Title>
+    <Description>Console interop for Blazor</Description>
+    <PackageTags>blazor;javascript;interop</PackageTags>
+    <RepositoryUrl>https://github.com/chanan/BlazorLogger</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
