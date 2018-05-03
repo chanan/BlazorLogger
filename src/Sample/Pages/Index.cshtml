@@ -1,0 +1,350 @@
+﻿@page "/"
+@using BlazorLogger
+
+<h1>Blazor Logger Demo Site</h1>
+
+<p>Open your browser's console and click the buttons below</p>
+
+<h2>Clear</h2>
+
+<button class="btn btn-primary" type="button" onclick="@onclickClear">Clear the Log</button>
+
+<h2>Count</h2>
+
+<button class="btn btn-primary" type="button" onclick="@onclickCount">Count Demo</button>
+
+<h2>Error</h2>
+
+<h3>Error: Single String and Object</h3>
+
+<button class="btn btn-danger" type="button" onclick="@onclickError1">Error String</button>
+
+<button class="btn btn-danger" type="button" onclick="@onclickError2">Error Object</button>
+
+<h3>Error: Array of Objects</h3>
+
+<button class="btn btn-danger" type="button" onclick="@onclickError3">Error Array of Objects</button>
+
+<h3>Error: String Substitutions</h3>
+
+<button class="btn btn-danger" type="button" onclick="@onclickError4">
+    Error with String Substitutions
+</button>
+
+<h3>Error: Exception</h3>
+
+<button class="btn btn-danger" type="button" onclick="@onclickError5">Error Exception</button>
+
+<h2>Group</h2>
+
+<button class="btn btn-primary" type="button" onclick="@onclickGroupExpanded">Group Expanded</button>
+
+<button class="btn btn-primary" type="button" onclick="@onclickGroupCollapsed">Group Collapsed</button>
+
+<h2>Info</h2>
+
+<h3>Info: Single String and Object</h3>
+
+<button class="btn btn-info" type="button" onclick="@onclickInfo1">Info String</button>
+
+<button class="btn btn-info" type="button" onclick="@onclickInfo2">Info Object</button>
+
+<h3>Info: Array of Objects</h3>
+
+<button class="btn btn-info" type="button" onclick="@onclickInfo3">Info Array of Objects</button>
+
+<h3>Info: String Substitutions</h3>
+
+<button class="btn btn-info" type="button" onclick="@onclickInfo4">Info with String Substitutions</button>
+
+<h2>Log</h2>
+
+<h3>Log: Single String and Object</h3>
+
+<button class="btn btn-primary" type="button" onclick="@onclickLog1">Log String</button>
+
+<button class="btn btn-primary" type="button" onclick="@onclickLog2">Log Object</button>
+
+<h3>Log: Array of Objects</h3>
+
+<button class="btn btn-primary" type="button" onclick="@onclickLog3">Log Array of Objects</button>
+
+<h3>Log: String Substitutions</h3>
+
+<button class="btn btn-primary" type="button" onclick="@onclickLog4">Log with String Substitutions</button>
+
+<h2>Table</h2>
+
+<button class="btn btn-primary" type="button" onclick="@onclickTable1">Array of Strings</button>
+
+<button class="btn btn-primary" type="button" onclick="@onclickTable2">Object</button>
+
+<button class="btn btn-primary" type="button" onclick="@onclickTable3">Array of Arrays</button>
+
+<button class="btn btn-primary" type="button" onclick="@onclickTable4">Array of Objects</button>
+
+<button class="btn btn-primary" type="button" onclick="@onclickTable5">Object of Objects</button>
+
+<button class="btn btn-primary" type="button" onclick="@onclickTable6">Restricting the columns displayed</button>
+
+<h2>Time</h2>
+
+<button class="btn btn-primary" type="button" onclick="@onclickTimer1">Start Timer</button>
+
+<button class="btn btn-primary" type="button" onclick="@onclickTimer2">End Timer</button>
+
+<h2>Warn</h2>
+
+<h3>Warn: Single String and Object</h3>
+
+<button class="btn btn-warning" type="button" onclick="@onclickWarn1">Warn String</button>
+
+<button class="btn btn-warning" type="button" onclick="@onclickWarn2">Warn Object</button>
+
+<h3>Warn: Array of Objects</h3>
+
+<button class="btn btn-warning" type="button" onclick="@onclickWarn3">Warn Array of Objects</button>
+
+<h3>Warn: String Substitutions</h3>
+
+<button class="btn btn-warning" type="button" onclick="@onclickWarn4">Warn with String Substitutions</button>
+
+
+@functions {
+    void onclickClear()
+    {
+        Logger.Clear();
+    }
+
+    void onclickCount()
+    {
+        //Logger.Count(); - currently does not work: https://github.com/aspnet/Blazor/issues/739
+        Logger.Count(null);
+        Logger.Count(null);
+        Logger.Count("bob");
+        Logger.Count("alice");
+        Logger.Count("bob");
+        /* Output:
+
+        default: 1
+        default: 2
+        bob: 1
+        alice: 1
+        bob: 2 */
+    }
+
+    void onclickError1()
+    {
+        Logger.Error("Hello World");
+    }
+
+    void onclickError2()
+    {
+        var person = new Person { FirstName = "John", LastName = "Smith" };
+        Logger.Error(person);
+    }
+
+    void onclickError3()
+    {
+        var list = new List<Person> { new Person { FirstName = "Jane", LastName = "Doe" }, new Person { FirstName = "John", LastName = "Smith" } };
+        Logger.Error(list);
+    }
+
+    void onclickError4()
+    {
+        var person = new Person { FirstName = "John", LastName = "Smith" };
+        var message = "Hello, %O, you have been called %i times";
+        for (int i = 0; i < 5; i++)
+        {
+            Logger.Error(message, person, i + 1);
+        }
+    }
+
+    void onclickError5()
+    {
+        Logger.Error("An exception occurred: %O", new Exception("Oh no! An Exception occurred!"));
+    }
+
+    void onclickGroupExpanded()
+    {
+        //Currently to use a group with no name, must pass null. See: https://github.com/aspnet/Blazor/issues/739
+        Logger.Log("This is the outer level");
+        Logger.Group("Outer Group");
+        Logger.Log("Level 2");
+        Logger.Group("Inner Group");
+        Logger.Log("Level 3");
+        Logger.Log("More of level 3"); //Change to Warn
+        Logger.GroupEnd();
+        Logger.Log("Back to level 2");
+        Logger.GroupEnd();
+        Logger.Log("Back to the outer level");
+    }
+
+    void onclickGroupCollapsed()
+    {
+        //Currently to use a group with no name, must pass null. See: https://github.com/aspnet/Blazor/issues/739
+        Logger.Log("This is the outer level");
+        Logger.GroupCollapsed("Outer Group");
+        Logger.Log("Level 2");
+        Logger.GroupCollapsed("Inner Group");
+        Logger.Log("Level 3");
+        Logger.Log("More of level 3"); //Change to Warn
+        Logger.GroupEnd();
+        Logger.Log("Back to level 2");
+        Logger.GroupEnd();
+        Logger.Log("Back to the outer level");
+    }
+
+    void onclickInfo1()
+    {
+        Logger.Info("Hello World");
+    }
+
+    void onclickInfo2()
+    {
+        var person = new Person { FirstName = "John", LastName = "Smith" };
+        Logger.Info(person);
+    }
+
+    void onclickInfo3()
+    {
+        var list = new List<Person> { new Person { FirstName = "Jane", LastName = "Doe" }, new Person { FirstName = "John", LastName = "Smith" } };
+        Logger.Info(list);
+    }
+
+    void onclickInfo4()
+    {
+        var person = new Person { FirstName = "John", LastName = "Smith" };
+        var message = "Hello, %O, you have been called %i times";
+        for (int i = 0; i < 5; i++)
+        {
+            Logger.Info(message, person, i + 1);
+        }
+    }
+
+    void onclickLog1()
+    {
+        Logger.Log("Hello World");
+    }
+
+    void onclickLog2()
+    {
+        var person = new Person { FirstName = "John", LastName = "Smith" };
+        Logger.Log(person);
+    }
+
+    void onclickLog3()
+    {
+        var list = new List<Person> { new Person { FirstName = "Jane", LastName = "Doe" }, new Person { FirstName = "John", LastName = "Smith" } };
+        Logger.Log(list);
+    }
+
+    void onclickLog4()
+    {
+        var person = new Person { FirstName = "John", LastName = "Smith" };
+        var message = "Hello, %O, you have been called %i times";
+        for (int i = 0; i < 5; i++)
+        {
+            Logger.Log(message, person, i + 1);
+        }
+    }
+
+    void onclickTable1()
+    {
+        var arr = new string[] { "apples", "oranges", "bananas" };
+        Logger.Table(arr);
+    }
+
+    void onclickTable2()
+    {
+        var person = new Person { FirstName = "John", LastName = "Smith" };
+        Logger.Table(person);
+    }
+
+    void onclickTable3()
+    {
+        var arr = new string[][] { new string[] { "John", "Smith" }, new string[] { "Jane", "Doe" }, new string[] { "Emily", "Jones" } };
+        Logger.Table(arr);
+    }
+
+    void onclickTable4()
+    {
+        var list = new List<Person> {
+    new Person { FirstName = "John", LastName ="Smith" },
+    new Person { FirstName = "Jane", LastName = "Doe" },
+    new Person { FirstName = "Emily", LastName = "Jones" }
+};
+        Logger.Table(list);
+    }
+
+    void onclickTable5()
+    {
+        var family = new Family
+        {
+            Mother = new Person { FirstName = "Jane", LastName = "Smith" },
+            Father = new Person { FirstName = "John", LastName = "Smith" },
+            Daughter = new Person { FirstName = "Emily", LastName = "Smith" }
+        };
+        Logger.Table(family);
+    }
+
+    void onclickTable6()
+    {
+        var list = new List<Person> {
+    new Person { FirstName = "John", LastName ="Smith" },
+    new Person { FirstName = "Jane", LastName = "Doe" },
+    new Person { FirstName = "Emily", LastName = "Jones" }
+};
+        Logger.Table(list, new string[] { "FirstName" });
+    }
+
+    void onclickTimer1()
+    {
+        Logger.Time("my-timer");
+    }
+
+    void onclickTimer2()
+    {
+        Logger.TimeEnd("my-timer");
+    }
+
+    void onclickWarn1()
+    {
+        Logger.Warn("Hello World");
+    }
+
+    void onclickWarn2()
+    {
+        var person = new Person { FirstName = "John", LastName = "Smith" };
+        Logger.Warn(person);
+    }
+
+    void onclickWarn3()
+    {
+        var list = new List<Person> { new Person { FirstName = "Jane", LastName = "Doe" }, new Person { FirstName = "John", LastName = "Smith" } };
+        Logger.Warn(list);
+    }
+
+    void onclickWarn4()
+    {
+        var person = new Person { FirstName = "John", LastName = "Smith" };
+        var message = "Hello, %O, you have been called %i times";
+        for (int i = 0; i < 5; i++)
+        {
+            Logger.Warn(message, person, i + 1);
+        }
+    }
+
+    class Person
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+    }
+
+    class Family
+    {
+        public Person Mother { get; set; }
+        public Person Father { get; set; }
+        public Person Daughter { get; set; }
+    }
+}
