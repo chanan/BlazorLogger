@@ -2,6 +2,8 @@
 
 A Javascript interop for console operations in Blazor framework
 
+Temporary library till Blazor Supprts console operations directly: "The Mono team is working on a library that exposes standard browser APIs to .NET."
+
 ## Install
 
 ### Package Manager
