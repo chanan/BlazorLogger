@@ -26,13 +26,15 @@ namespace BlazorLogger
             var _list = new List<object>(list);
             RegisteredFunction.Invoke<bool>("BlazorLogger.Logger.Error", _list);
         }
-        public static void Group(string label)
+        public static void Group(params object[] list)
         {
-            RegisteredFunction.Invoke<bool>("BlazorLogger.Logger.Group", label);
+            var _list = new List<object>(list); //This line is needed see: https://github.com/aspnet/Blazor/issues/740
+            RegisteredFunction.Invoke<bool>("BlazorLogger.Logger.Group", _list);
         }
-        public static void GroupCollapsed(string label)
+        public static void GroupCollapsed(params object[] list)
         {
-            RegisteredFunction.Invoke<bool>("BlazorLogger.Logger.GroupCollapsed", label);
+            var _list = new List<object>(list); //This line is needed see: https://github.com/aspnet/Blazor/issues/740
+            RegisteredFunction.Invoke<bool>("BlazorLogger.Logger.GroupCollapsed", _list);
         }
         public static void GroupEnd()
         {

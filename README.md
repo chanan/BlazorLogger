@@ -9,13 +9,13 @@ Temporary library till Blazor Supprts console operations directly: "The Mono tea
 ### Package Manager
 
 ```
-Install-Package BlazorLogger -Version 0.1.0
+Install-Package BlazorLogger -Version 0.1.1
 ```
 
 ### .net CLI
 
 ```
-dotnet add package BlazorLogger --version 0.1.0
+dotnet add package BlazorLogger --version 0.1.1
 ```
 
 ## Docs
@@ -36,8 +36,8 @@ To see these operations in action, you may download the sample project or view o
 * Logger.Clear() - Clears the console
 * Logger.Count(label) - Counts the number of times a line has been reached
 * Logger.Error(params) - Writes an error to the console
-* Logger.Group(label) - Begins a group
-* Logger.GroupCollapsed(label) - Begins a collapsed group
+* Logger.Group(params) - Begins a group
+* Logger.GroupCollapsed(params) - Begins a collapsed group
 * Logger.GroupEnd() - Ends the last opened group
 * Logger.Info(params) - Writes an info level message to the console
 * Logger.Log(params) - Logs a message to the console
@@ -49,7 +49,7 @@ To see these operations in action, you may download the sample project or view o
 
 ### Params
 
-In the above API, params are used for `Error`, `Info`, `Log`, and `Warn`. Params are of type `params object[] list` so usage is similiar to how it used in JavaScript. For example, `Logger.Log("My object %O and My Number: %d", myObject, myNumber);`
+In the above API, params are used for `Error`, `Info`, `Log`, `Warn`, `Group`, and `GroupCollapsed`. Params are of type `params object[] list` so usage is similiar to how it used in JavaScript. For example, `Logger.Log("My object %O and My Number: %d", myObject, myNumber);`
 
 For more examples please see the same project.
 

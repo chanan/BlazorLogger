@@ -41,6 +41,8 @@
 
 <button class="btn btn-primary" type="button" onclick="@onclickGroupCollapsed">Group Collapsed</button>
 
+<button class="btn btn-primary" type="button" onclick="@onclickGroupCollapsedStyles">Group Collapsed with Styles</button>
+
 <h2>Info</h2>
 
 <h3>Info: Single String and Object</h3>
@@ -193,6 +195,14 @@
         Logger.Log("Back to level 2");
         Logger.GroupEnd();
         Logger.Log("Back to the outer level");
+    }
+
+    void onclickGroupCollapsedStyles()
+    {
+        Logger.GroupCollapsed("%cStyled Group", "color: red; font - style: bold;");
+        Logger.Log("Log message");
+        Logger.Log("Second line");
+        Logger.GroupEnd();
     }
 
     void onclickInfo1()

@@ -18,15 +18,21 @@ Blazor.registerFunction('BlazorLogger.Logger.Error', function (args) {
     return true;
 });
 
-Blazor.registerFunction('BlazorLogger.Logger.Group', function (label) {
-    if (label !== null) console.group(label);
-    else console.group();
+Blazor.registerFunction('BlazorLogger.Logger.Group', function (args) {
+    if (Array.isArray(args)) {
+        console["group"].apply(this, args)
+    } else {
+        console.group(args);
+    }
     return true;
 });
 
-Blazor.registerFunction('BlazorLogger.Logger.GroupCollapsed', function (label) {
-    if (label !== null) console.groupCollapsed(label);
-    else console.groupCollapsed();
+Blazor.registerFunction('BlazorLogger.Logger.GroupCollapsed', function (args) {
+    if (Array.isArray(args)) {
+        console["groupCollapsed"].apply(this, args)
+    } else {
+        console.groupCollapsed(args);
+    }
     return true;
 });
 
