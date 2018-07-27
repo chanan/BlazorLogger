@@ -1,75 +1,76 @@
-﻿using Microsoft.AspNetCore.Blazor.Browser.Interop;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.JSInterop;
 
 namespace BlazorLogger
 {
     public class Logger
     {
-        public static void Clear()
+        public static Task<bool> Clear()
         {
-            RegisteredFunction.Invoke<bool>("BlazorLogger.Logger.Clear");
+            return JSRuntime.Current.InvokeAsync<bool>("blazorLogger.clear");
         }
 
 
         //Currently does not work: https://github.com/aspnet/Blazor/issues/739
         /*public static void Count()
         {
-            RegisteredFunction.Invoke<bool>("BlazorLogger.Logger.Count", null);
+            RegisteredFunction.Invoke<bool>("blazorLogger.count", null);
         }*/
 
-        public static void Count(string label)
+        public static Task<bool> Count(string label)
         {
-            RegisteredFunction.Invoke<bool>("BlazorLogger.Logger.Count", label);
+            return JSRuntime.Current.InvokeAsync<bool>("blazorLogger.count", label);
         }
-        public static void Error(params object[] list)
+        public static Task<bool> Error(params object[] list)
         {
             var _list = new List<object>(list);
-            RegisteredFunction.Invoke<bool>("BlazorLogger.Logger.Error", _list);
+            return JSRuntime.Current.InvokeAsync<bool>("blazorLogger.error", _list);
         }
-        public static void Group(params object[] list)
+        public static Task<bool> Group(params object[] list)
         {
             var _list = new List<object>(list); //This line is needed see: https://github.com/aspnet/Blazor/issues/740
-            RegisteredFunction.Invoke<bool>("BlazorLogger.Logger.Group", _list);
+            return JSRuntime.Current.InvokeAsync<bool>("blazorLogger.group", _list);
         }
-        public static void GroupCollapsed(params object[] list)
+        public static Task<bool> GroupCollapsed(params object[] list)
         {
             var _list = new List<object>(list); //This line is needed see: https://github.com/aspnet/Blazor/issues/740
-            RegisteredFunction.Invoke<bool>("BlazorLogger.Logger.GroupCollapsed", _list);
+            return JSRuntime.Current.InvokeAsync<bool>("blazorLogger.groupCollapsed", _list);
         }
-        public static void GroupEnd()
+        public static Task<bool> GroupEnd()
         {
-            RegisteredFunction.Invoke<bool>("BlazorLogger.Logger.GroupEnd");
+            return JSRuntime.Current.InvokeAsync<bool>("blazorLogger.groupEnd");
         }
-        public static void Info(params object[] list)
-        {
-            var _list = new List<object>(list); //This line is needed see: https://github.com/aspnet/Blazor/issues/740
-            RegisteredFunction.Invoke<bool>("BlazorLogger.Logger.Info", _list);
-        }
-        public static void Log(params object[] list)
+        public static Task<bool> Info(params object[] list)
         {
             var _list = new List<object>(list); //This line is needed see: https://github.com/aspnet/Blazor/issues/740
-            RegisteredFunction.Invoke<bool>("BlazorLogger.Logger.Log", _list);
+            return JSRuntime.Current.InvokeAsync<bool>("blazorLogger.info", _list);
         }
-        public static void Table(object obj)
-        {
-            RegisteredFunction.Invoke<bool>("BlazorLogger.Logger.Table", obj);
-        }
-        public static void Table(object obj, string[] columns)
-        {
-            RegisteredFunction.Invoke<bool>("BlazorLogger.Logger.TableColumns", obj, columns);
-        }
-        public static void Time(string label)
-        {
-            RegisteredFunction.Invoke<bool>("BlazorLogger.Logger.Time", label);
-        }
-        public static void TimeEnd(string label)
-        {
-            RegisteredFunction.Invoke<bool>("BlazorLogger.Logger.TimeEnd", label);
-        }
-        public static void Warn(params object[] list)
+        public static Task<bool> Log(params object[] list)
         {
             var _list = new List<object>(list); //This line is needed see: https://github.com/aspnet/Blazor/issues/740
-            RegisteredFunction.Invoke<bool>("BlazorLogger.Logger.Warn", _list);
+            return JSRuntime.Current.InvokeAsync<bool>("blazorLogger.log", _list);
+        }
+        public static Task<bool> Table(object obj)
+        {
+            return JSRuntime.Current.InvokeAsync<bool>("blazorLogger.table", obj);
+        }
+        public static Task<bool> Table(object obj, string[] columns)
+        {
+            return JSRuntime.Current.InvokeAsync<bool>("blazorLogger.tableColumns", obj, columns);
+        }
+        public static Task<bool> Time(string label)
+        {
+            return JSRuntime.Current.InvokeAsync<bool>("blazorLogger.time", label);
+        }
+        public static Task<bool> TimeEnd(string label)
+        {
+            return JSRuntime.Current.InvokeAsync<bool>("blazorLogger.timeEnd", label);
+        }
+        public static Task<bool> Warn(params object[] list)
+        {
+            var _list = new List<object>(list); //This line is needed see: https://github.com/aspnet/Blazor/issues/740
+            return JSRuntime.Current.InvokeAsync<bool>("blazorLogger.warn", _list);
         }
     }
 }
