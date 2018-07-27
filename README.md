@@ -9,13 +9,13 @@ Temporary library till Blazor Supprts console operations directly: "The Mono tea
 ### Package Manager
 
 ```
-Install-Package BlazorLogger -Version 0.1.1
+Install-Package BlazorLogger -Version 0.5.0
 ```
 
 ### .net CLI
 
 ```
-dotnet add package BlazorLogger --version 0.1.1
+dotnet add package BlazorLogger --version 0.5.0
 ```
 
 ## Docs
