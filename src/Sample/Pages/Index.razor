@@ -1,6 +1,6 @@
 ﻿@page "/"
 @using BlazorLogger
-@inject ILogger logger
+@inject ILogger Logger
 
 <h1>Blazor Logger Demo Site</h1>
 
@@ -116,17 +116,17 @@
 @functions {
     void onclickClear()
     {
-        logger.Clear();
+        Logger.Clear();
     }
 
     void onclickCount()
     {
         //Logger.Count(); - currently does not work: https://github.com/aspnet/Blazor/issues/739
-        logger.Count(null);
-        logger.Count(null);
-        logger.Count("bob");
-        logger.Count("alice");
-        logger.Count("bob");
+        Logger.Count(null);
+        Logger.Count(null);
+        Logger.Count("bob");
+        Logger.Count("alice");
+        Logger.Count("bob");
         /* Output:
 
         default: 1
@@ -138,19 +138,19 @@
 
     void onclickError1()
     {
-        logger.Error("Hello World");
+        Logger.Error("Hello World");
     }
 
     void onclickError2()
     {
         var person = new Person { FirstName = "John", LastName = "Smith" };
-        logger.Error(person);
+        Logger.Error(person);
     }
 
     void onclickError3()
     {
         var list = new List<Person> { new Person { FirstName = "Jane", LastName = "Doe" }, new Person { FirstName = "John", LastName = "Smith" } };
-        logger.Error(list);
+        Logger.Error(list);
     }
 
     void onclickError4()
@@ -159,68 +159,68 @@
         var message = "Hello, %O, you have been called %i times";
         for (int i = 0; i < 5; i++)
         {
-            logger.Error(message, person, i + 1);
+            Logger.Error(message, person, i + 1);
         }
     }
 
     void onclickError5()
     {
-        logger.Error("An exception occurred: %O", new Exception("Oh no! An Exception occurred!"));
+        Logger.Error("An exception occurred: %O", new Exception("Oh no! An Exception occurred!"));
     }
 
     void onclickGroupExpanded()
     {
         //Currently to use a group with no name, must pass null. See: https://github.com/aspnet/Blazor/issues/739
-        logger.Log("This is the outer level");
-        logger.Group("Outer Group");
-        logger.Log("Level 2");
-        logger.Group("Inner Group");
-        logger.Log("Level 3");
-        logger.Log("More of level 3"); //Change to Warn
-        logger.GroupEnd();
-        logger.Log("Back to level 2");
-        logger.GroupEnd();
-        logger.Log("Back to the outer level");
+        Logger.Log("This is the outer level");
+        Logger.Group("Outer Group");
+        Logger.Log("Level 2");
+        Logger.Group("Inner Group");
+        Logger.Log("Level 3");
+        Logger.Log("More of level 3"); //Change to Warn
+        Logger.GroupEnd();
+        Logger.Log("Back to level 2");
+        Logger.GroupEnd();
+        Logger.Log("Back to the outer level");
     }
 
     void onclickGroupCollapsed()
     {
         //Currently to use a group with no name, must pass null. See: https://github.com/aspnet/Blazor/issues/739
-        logger.Log("This is the outer level");
-        logger.GroupCollapsed("Outer Group");
-        logger.Log("Level 2");
-        logger.GroupCollapsed("Inner Group");
-        logger.Log("Level 3");
-        logger.Warn("More of level 3");
-        logger.GroupEnd();
-        logger.Log("Back to level 2");
-        logger.GroupEnd();
-        logger.Log("Back to the outer level");
+        Logger.Log("This is the outer level");
+        Logger.GroupCollapsed("Outer Group");
+        Logger.Log("Level 2");
+        Logger.GroupCollapsed("Inner Group");
+        Logger.Log("Level 3");
+        Logger.Warn("More of level 3");
+        Logger.GroupEnd();
+        Logger.Log("Back to level 2");
+        Logger.GroupEnd();
+        Logger.Log("Back to the outer level");
     }
 
     void onclickGroupCollapsedStyles()
     {
-        logger.GroupCollapsed("%cStyled Group", "color: red; font - style: bold;");
-        logger.Log("Log message");
-        logger.Log("Second line");
-        logger.GroupEnd();
+        Logger.GroupCollapsed("%cStyled Group", "color: red; font - style: bold;");
+        Logger.Log("Log message");
+        Logger.Log("Second line");
+        Logger.GroupEnd();
     }
 
     void onclickInfo1()
     {
-        logger.Info("Hello World");
+        Logger.Info("Hello World");
     }
 
     void onclickInfo2()
     {
         var person = new Person { FirstName = "John", LastName = "Smith" };
-        logger.Info(person);
+        Logger.Info(person);
     }
 
     void onclickInfo3()
     {
         var list = new List<Person> { new Person { FirstName = "Jane", LastName = "Doe" }, new Person { FirstName = "John", LastName = "Smith" } };
-        logger.Info(list);
+        Logger.Info(list);
     }
 
     void onclickInfo4()
@@ -229,25 +229,25 @@
         var message = "Hello, %O, you have been called %i times";
         for (int i = 0; i < 5; i++)
         {
-            logger.Info(message, person, i + 1);
+            Logger.Info(message, person, i + 1);
         }
     }
 
     void onclickLog1()
     {
-        logger.Log("Hello World");
+        Logger.Log("Hello World");
     }
 
     void onclickLog2()
     {
         var person = new Person { FirstName = "John", LastName = "Smith" };
-        logger.Log(person);
+        Logger.Log(person);
     }
 
     void onclickLog3()
     {
         var list = new List<Person> { new Person { FirstName = "Jane", LastName = "Doe" }, new Person { FirstName = "John", LastName = "Smith" } };
-        logger.Log(list);
+        Logger.Log(list);
     }
 
     void onclickLog4()
@@ -256,26 +256,26 @@
         var message = "Hello, %O, you have been called %i times";
         for (int i = 0; i < 5; i++)
         {
-            logger.Log(message, person, i + 1);
+            Logger.Log(message, person, i + 1);
         }
     }
 
     void onclickTable1()
     {
         var arr = new string[] { "apples", "oranges", "bananas" };
-        logger.Table(arr);
+        Logger.Table(arr);
     }
 
     void onclickTable2()
     {
         var person = new Person { FirstName = "John", LastName = "Smith" };
-        logger.Table(person);
+        Logger.Table(person);
     }
 
     void onclickTable3()
     {
         var arr = new string[][] { new string[] { "John", "Smith" }, new string[] { "Jane", "Doe" }, new string[] { "Emily", "Jones" } };
-        logger.Table(arr);
+        Logger.Table(arr);
     }
 
     void onclickTable4()
@@ -285,7 +285,7 @@
     new Person { FirstName = "Jane", LastName = "Doe" },
     new Person { FirstName = "Emily", LastName = "Jones" }
 };
-        logger.Table(list);
+        Logger.Table(list);
     }
 
     void onclickTable5()
@@ -296,7 +296,7 @@
             Father = new Person { FirstName = "John", LastName = "Smith" },
             Daughter = new Person { FirstName = "Emily", LastName = "Smith" }
         };
-        logger.Table(family);
+        Logger.Table(family);
     }
 
     void onclickTable6()
@@ -306,34 +306,34 @@
     new Person { FirstName = "Jane", LastName = "Doe" },
     new Person { FirstName = "Emily", LastName = "Jones" }
 };
-        logger.Table(list, new string[] { "FirstName" });
+        Logger.Table(list, new string[] { "FirstName" });
     }
 
     void onclickTimer1()
     {
-        logger.Time("my-timer");
+        Logger.Time("my-timer");
     }
 
     void onclickTimer2()
     {
-        logger.TimeEnd("my-timer");
+        Logger.TimeEnd("my-timer");
     }
 
     void onclickWarn1()
     {
-        logger.Warn("Hello World");
+        Logger.Warn("Hello World");
     }
 
     void onclickWarn2()
     {
         var person = new Person { FirstName = "John", LastName = "Smith" };
-        logger.Warn(person);
+        Logger.Warn(person);
     }
 
     void onclickWarn3()
     {
         var list = new List<Person> { new Person { FirstName = "Jane", LastName = "Doe" }, new Person { FirstName = "John", LastName = "Smith" } };
-        logger.Warn(list);
+        Logger.Warn(list);
     }
 
     void onclickWarn4()
@@ -342,7 +342,7 @@
         var message = "Hello, %O, you have been called %i times";
         for (int i = 0; i < 5; i++)
         {
-            logger.Warn(message, person, i + 1);
+            Logger.Warn(message, person, i + 1);
         }
     }
 

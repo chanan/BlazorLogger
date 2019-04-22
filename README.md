@@ -8,21 +8,25 @@ Temporary library till Blazor Supprts console operations directly: "The Mono tea
 
 ### Package Manager
 
-```
-Install-Package BlazorLogger -Version 0.5.0
-```
-
-### .net CLI
-
-```
-dotnet add package BlazorLogger --version 0.5.0
-```
+[![NuGet Pre Release](https://img.shields.io/nuget/vpre/BlazorLogger.svg)](https://www.nuget.org/packages/BlazorLogger/)
 
 ## Docs
 
-Add `@using BlazorLogger` to the top of you page or your `_ViewImports.cshtml`
+In your `Startup.cs` add the registration to `ConfigureServices` like so:
 
-All methods are on the class Logger
+```
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddJavascriptLogger();
+}
+```
+
+Then inject `ILogger` into your class or page, for example:
+
+```
+@using BlazorLogger
+@inject ILogger Logger
+```
 
 The api follows the same syntax as javascript "console" found here: https://developer.mozilla.org/en-US/docs/Web/API/Console with some minor exceptions:
 
